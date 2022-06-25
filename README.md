@@ -295,6 +295,7 @@ In order to set the values, all you would need to do is to provide the values vi
 
 It would be up to you, to define that class, based on the approach you would like to take for the specific needs of your application. For simplicity, in the example above we are just providing the values via private variables.
 
+
 ### Create a Blazor WebAssembly Application
 
 ![Add a new project](images/3fa0fb360b28fa1be0be6f09acf524e5383a9c44cad0168c9a96a9f2aab2f8d3.png)
