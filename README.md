@@ -395,7 +395,7 @@ In this episode we showed you how to utilize the new `<PageTitle>`, and `<HeadCo
 
 We also talked about how `render-mode` `ServerPrerendered` aids with SEO, and how you can upgrade a .NET 5.0 Blazor Server application to .NET 6.0, and by making small changes utilize the `<PageTitle>`, and `<HeadContent>` components.
 
-Finally, we also talked about `ServerPrerendered` in Blazor WebAssembly applications, to make it SEO-friendly as well.
+Finally, we also talked about how `WebAssemblyPrerendered ` in Blazor WebAssembly applications, help you write SEO-friendly applications as well.
 
 For more information about Blazor and SEO, check out the links in the resources section below.
 
