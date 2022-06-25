@@ -56,13 +56,13 @@ For this demo, we are going to use the latest version of [Visual Studio 2022 Pre
 
 In order to build Blazor apps, the ASP.NET and web development workload needs to be installed, so if you do not have that installed let's do that now.
 
-![ASP.NET and web development](images/34640f10f2d813f245973ddb81ffa401c7366e96e625b3e59c7c51a78bbb2056.png)  
+![ASP.NET and web development](images/34640f10f2d813f245973ddb81ffa401c7366e96e625b3e59c7c51a78bbb2056.png)
 
 ## Demo
 
-In the following demo we will create a Blazor application and I will show you how to make it SEO (Search Engine Optimization) friendly, by leveraging the new `<PageTitle>`, and `<HeadContent>` tags introduced in .NET 6.0.
+In the following demo we will create a Blazor application and I will show you how to make it SEO (Search Engine Optimization) friendly, by leveraging the new `<PageTitle>`, and `<HeadContent>` components introduced in .NET 6.0.
 
-We are going to talk about the how `ServerPrerendered` aids with that, and how you can take a .NET 5.0 Blazor Server application, and make changes to take advantage of the new `<PageTitle>`, and `<HeadContent>` features by converting it to .NET 6.0.
+We are going to talk about the how `ServerPrerendered` aids with that, and how you can take a .NET 5.0 Blazor Server application, and make changes to take advantage of the new `<PageTitle>`, and `<HeadContent>` components, by upgrading the application to use the .NET 6.0 target framework.
 
 Finally, we will also talk about `ServerPrerendered` in Blazor WebAssembly applications, to also create a SEO-friendly application.
 
@@ -72,7 +72,7 @@ Let's get started by creating a Blazor Server Application.
 
 ![Blazor Server Application](images/a2daeedfde2b49ee5be16cf5c6ac1e7722fb0fa55b557955eaeb78f39bf51c18.png)
 
-![Additional Information](images/7755ea2021df87ef11df82a5d0fc7bd29e8009a7b509ed0bbdedc3f82870e913.png)  
+![Additional Information](images/7755ea2021df87ef11df82a5d0fc7bd29e8009a7b509ed0bbdedc3f82870e913.png)
 
 As you may know, in order to build a SEO friendly application, we need to provide at a very minimum, a useful title and description for every page. We do this inside the `<head>` section, with the HTML `<title>`, and `<meta>` tags, respectively.
 
@@ -82,11 +82,11 @@ Search engines will use these pieces of information when crawling your pages, an
 
 ### .NET 6.0 HeadContent and PageTile
 
-The ability to modify the `<head>` content in Blazor applications was introduced in .NET 6.0 with the addition of `<PageTitle>` and `<HeadContent>`. No longer you have to rely on third party tools or `JSInterop` to modify the `<head>` content.
+The ability to modify the `<head>` content in Blazor applications was introduced in .NET 6.0 with the addition of the `<PageTitle>`, and `<HeadContent>` components. No longer you have to rely on third party tools or `JSInterop` to modify the `<head>` content.
 
 By default, in a Blazor Server app, a title will be specified for you for the three pages provided by the template `Home` (*Index.razor*), `Counter` (*Counter.razor*), and `Weather forecast` (*FetchData.razor*).
 
-The template does this, by defining a `<PageTitle>` section for each page, as you can see in code from the files below:
+The template does this, by utilizing a `<PageTitle>` component for each page, as you can see in code from the files below:
 
 #### *Index.razor* PageTitle
 
@@ -110,13 +110,13 @@ Let's add now a `meta` description to hour pages, we do that with the `<HeadCont
 
 Inside of `<HeadContent>` add an `HTML` `<meta>` tag, and when you type `name="` IntelliSense will provide you with a long list of available meta tags you can choose from, as you can see in the following image:
 
-![Meta Tags](images/7e9e9c987ec9666cf4f262cf5bb7310309ac834a059f09dd51bc5d0be0407cb3.png)  
+![Meta Tags](images/7e9e9c987ec9666cf4f262cf5bb7310309ac834a059f09dd51bc5d0be0407cb3.png)
 
 For this example, we need to select or type `description`.
 
 >:blue_book: As you can see there are specific tags for different platforms, such as Apple, Microsoft, Twitter, and Open Graph (og:) used by Facebook. For more information on each platform, check out the resources at the end of this document.
 
-Place a `<HeadContent>` section, with a description meta tag, below `<PageTitle>` in all three files.
+Place a `<HeadContent>` component, with a description meta tag, below `<PageTitle>` in all three files.
 
 #### *Index.razor* HeadContent
 
@@ -150,19 +150,19 @@ Now, one important thing is to notice the title and meta tags, not only under th
 
 Rick-click anywhere on the application, and click on `View page source`.
 
-![View page source](images/e81ac1c08c56ec15778bea67baa25324e4a2acf1d5b1479d642dda1175c3eb59.png)  
+![View page source](images/e81ac1c08c56ec15778bea67baa25324e4a2acf1d5b1479d642dda1175c3eb59.png)
 
 You may notice that title and description do not show up:
 
-![Missing Title and Description](images/d0bf8f0ab3bee090fbc09c7f8068153e41428aedb9359ed0bb5379902822aec9.png)  
+![Missing Title and Description](images/d0bf8f0ab3bee090fbc09c7f8068153e41428aedb9359ed0bb5379902822aec9.png)
 
 That's because they are "buried" under the `<!--Blazor:...>` comment line below:
 
-![<!--Blazor:...](images/efc92ee3bde84b3099d9e9799a6dcda84318d005c93cd4c364aad021e82f78ff.png)  
+![<!--Blazor:...](images/efc92ee3bde84b3099d9e9799a6dcda84318d005c93cd4c364aad021e82f78ff.png)
 
 Scroll all the way to the right, and you will find the tags, in an uncommented section:
 
-![Scroll to the right](images/8f702dd096bcc2203d76b58547d9f2a39f702fca76f564c7fbac5d517f9573e9.png)  
+![Scroll to the right](images/8f702dd096bcc2203d76b58547d9f2a39f702fca76f564c7fbac5d517f9573e9.png)
 
 The formatting may change in the future, the current format is not a problem from web crawlers to find the tags.
 
@@ -176,9 +176,9 @@ If you have a Blazor Server application that was upgraded from .NET 5.0 to .NET 
 
 Add a new Blazor Server application, but this time select .NET 5.0 as the target framework.
 
-![Configure your new project](images/68ff7ad68d299df91e9eaf8a4969f7a7cc31f1d48a6f469dae5920b895b0d309.png)  
+![Configure your new project](images/68ff7ad68d299df91e9eaf8a4969f7a7cc31f1d48a6f469dae5920b895b0d309.png)
 
-![Additional information](images/3e82a8cdececb5582193b4848c61e7d0a7a2ac8b80795b32b20a73846e276959.png)  
+![Additional information](images/3e82a8cdececb5582193b4848c61e7d0a7a2ac8b80795b32b20a73846e276959.png)
 
 Double-click the project name `BlazorServerAppSEOWithNET5.0`, and change the TargetFramework from net5.0 to net6.0.
 
@@ -225,9 +225,9 @@ Remove the code we moved to the *_Layout.cshtml* file from the *_host.cshtml* an
 <component type="typeof(App)" render-mode="ServerPrerendered" />
 ```
 
-That's all the pre-work needed, now we can use `<PageTitle>` and `<HeadContent>` as we did before.
+That's all the pre-work needed, now we can use `<PageTitle>`, and `<HeadContent>` as we did before.
 
-Add a `<PageTitle>` with a title, and a `<HeadContent>` sections, with the title and a description meta tag in all three files.
+Add a `<PageTitle>` components with a title, and a `<HeadContent>` component, with a description meta tag in all three files.
 
 #### *Index.razor* HeadContent
 
@@ -263,12 +263,11 @@ Set the `BlazorServerAppSEOWithNET5.0` project as the start-up project, and run 
 
 As you can see, title and description tags show up correctly under the Elements tab:
 
-![SEO in Blazor Server App](images/7cb7f78b914ae0bdbbe07543fb489170382cd46a3f9c8d326307837ed926ce5a.png)  
+![SEO in Blazor Server App](images/7cb7f78b914ae0bdbbe07543fb489170382cd46a3f9c8d326307837ed926ce5a.png)
 
 As well as under the page source:
 
-![Tags under page source](images/cdc0bed7a25cbb43fe7b3adabde67533ebda6a56751f264d40620094f5f1c95c.png)  
-
+![Tags under page source](images/cdc0bed7a25cbb43fe7b3adabde67533ebda6a56751f264d40620094f5f1c95c.png)
 
 ## Summary
 
