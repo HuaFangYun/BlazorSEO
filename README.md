@@ -16,6 +16,7 @@
       - [*Index.razor* HeadContent](#indexrazor-headcontent)
       - [*Counter.razor* HeadContent](#counterrazor-headcontent)
       - [*FetchData.razor* HeadContent](#fetchdatarazor-headcontent)
+    - [Dynamic Title and Meta Tags](#dynamic-title-and-meta-tags)
     - [SEO in a Blazor Server Application Converted from .NET 5.0 to .NET 6.0](#seo-in-a-blazor-server-application-converted-from-net-50-to-net-60)
       - [*Index.razor* HeadContent](#indexrazor-headcontent-1)
       - [*Counter.razor* HeadContent](#counterrazor-headcontent-1)
@@ -171,6 +172,27 @@ The formatting may change in the future, the current format is not a problem fro
 The "magic" that make this possible, is because a Blazor Server app with .NET 6.0 supports prerendering, and to do that, the `App` root component needs to be rendered before the `HeadOutlet`.
 
 If you have a Blazor Server application that was upgraded from .NET 5.0 to .NET 6.0, you need to make a few tweaks to be able to render the `App` root component before the `HeadOutlet`. Let's do that next.
+
+### Dynamic Title and Meta Tags
+
+Depending on your application needs, you may choose to create dynamic titles and meta tags for your pages. You can do that either by creating a class with all you pages' hard-coded titles and descriptions, creating them dynamically based on the specific page, think of a Products page, or even retrieving them from a database.
+
+In order to set the values, all you would need to do is to provide the values via code. Take a look at the following basic example:
+
+```razor
+<PageTitle>@pageTitle</PageTitle>
+
+<HeadContent>
+	<meta name="description" content="@pageDescription">
+</HeadContent>
+
+@code {
+	private string pageTitle = "Home (Dynamic page title)"
+    private string pageDescription = "Description (Dynamic page description.)"
+}
+```
+
+It would be up to you, to define that class, based on the approach you would like to take for the specific needs of your application. For simplicity, in the example above we are just providing the values via private variables.
 
 ### SEO in a Blazor Server Application Converted from .NET 5.0 to .NET 6.0
 
