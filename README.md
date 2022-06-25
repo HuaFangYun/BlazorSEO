@@ -16,11 +16,11 @@
       - [*Index.razor* HeadContent](#indexrazor-headcontent)
       - [*Counter.razor* HeadContent](#counterrazor-headcontent)
       - [*FetchData.razor* HeadContent](#fetchdatarazor-headcontent)
-    - [Dynamic Title and Meta Tags](#dynamic-title-and-meta-tags)
     - [SEO in a Blazor Server Application Converted from .NET 5.0 to .NET 6.0](#seo-in-a-blazor-server-application-converted-from-net-50-to-net-60)
       - [*Index.razor* PageTitle and HeadContent](#indexrazor-pagetitle-and-headcontent)
       - [*Counter.razor* PageTitle and HeadContent](#counterrazor-pagetitle-and-headcontent)
       - [*FetchData.razor* PageTitle and HeadContent](#fetchdatarazor-pagetitle-and-headcontent)
+    - [Dynamic Title and Meta Tags](#dynamic-title-and-meta-tags)
     - [Create a Blazor WebAssembly Application](#create-a-blazor-webassembly-application)
       - [*Index.razor* PageTitle and HeadContent in WebAssembly](#indexrazor-pagetitle-and-headcontent-in-webassembly)
       - [*Counter.razor* PageTitle and HeadContent in WebAssembly](#counterrazor-pagetitle-and-headcontent-in-webassembly)
@@ -35,9 +35,9 @@
 
 In this episode we will create a Blazor application and I will show you how to make it Search Engine Optimization (SEO) friendly, by leveraging the new `<PageTitle>`, and `<HeadContent>` components introduced in .NET 6.0.
 
-We are going to talk about the how `render-mode` `ServerPrerendered` can improve SEO by rendering content for the initial HTTP response, and also I am going to show you how you can take a .NET 5.0 Blazor Server application, and make changes to take advantage of the new `<PageTitle>`, and `<HeadContent>` components, by upgrading the application to use the .NET 6.0 target framework.
+We are going to talk about how `render-mode` `ServerPrerendered` can improve SEO by rendering content for the initial HTTP response, and also I am going to show you how you make changes to a .NET 5.0 Blazor Server application, to take advantage of the new `<PageTitle>`, and `<HeadContent>` components, by upgrading the application to use the .NET 6.0 target framework.
 
-Finally, we will also talk about `render-mode` `ServerPrerendered` in Blazor WebAssembly applications, to also create a SEO-friendly application.
+Finally, we will also talk about `render-mode` `ServerPrerendered` in a Blazor WebAssembly application, to also create a SEO-friendly.
 
 End results will have a SEO friendly title and description meta tag, as shown below:
 
@@ -81,9 +81,9 @@ Let's get started with the demo by creating a Blazor Server Application.
 
 As you may know, in order to build a SEO friendly application, we need to provide at a very minimum, a useful title and description for every page. We do this inside the `<head>` section, with the HTML `<title>`, and `<meta>` tags, respectively.
 
-Search engines will use these pieces of information when crawling your pages, and to display their search results.
+Search engines will use these pieces of information when crawling your pages, and will display them on their search results.
 
->:blue_book: As I mentioned, title and description, are the minimum items you want to include for SEO, but for a deeper understanding refer to the official guidelines for each search engine.  [Search Engine Optimization (SEO) Starter Guide](https://developers.google.com/search/docs/beginner/seo-starter-guide?hl=en&visit_id=637639370449073519-226133402&rd=1), and [Bing Webmaster Guidelines](https://www.bing.com/webmasters/help/webmasters-guidelines-30fba23a).
+>:blue_book: As I mentioned, title and description, are the minimum items you want to include for SEO, but for a deeper understanding of SEO, refer to the official guidelines for each search engine.  [Search Engine Optimization (SEO) Starter Guide](https://developers.google.com/search/docs/beginner/seo-starter-guide?hl=en&visit_id=637639370449073519-226133402&rd=1), and [Bing Webmaster Guidelines](https://www.bing.com/webmasters/help/webmasters-guidelines-30fba23a).
 
 ### .NET 6.0 HeadContent and PageTile
 
@@ -111,15 +111,15 @@ The template does this, by utilizing a `<PageTitle>` component for each page, as
 <PageTitle>Weather forecast</PageTitle>
 ```
 
-Let's add now a `meta` description to hour pages, we do that with the `<HeadContent>` razor tag.
+Let's add now a `meta` description to our pages; we do that with the `<HeadContent>` razor component.
 
-Inside of `<HeadContent>` add an `HTML` `<meta>` tag, and when you type `name="` IntelliSense will provide you with a long list of available meta tags you can choose from, as you can see in the following image:
+Inside of `<HeadContent>` add an `HTML` `<meta>` tag with the name of `description`. Notice that when type `name="` IntelliSense will provide you with a long list of available meta tags you can choose from, as you can see in the following image:
 
 ![Meta Tags](images/7e9e9c987ec9666cf4f262cf5bb7310309ac834a059f09dd51bc5d0be0407cb3.png)
 
 For this example, we need to select or type `description`.
 
->:blue_book: As you can see there are specific tags for different platforms, such as Apple, Microsoft, Twitter, and Open Graph (og:) used by Facebook. For more information on each platform, check out the resources at the end of this document.
+>:blue_book: As you can see there are specific tags for different platforms, such as Apple, Microsoft, Twitter, and Open Graph (og:), used by Facebook. For more information on each platform, check out the resources at the end of this document.
 
 Place a `<HeadContent>` component, with a description meta tag, below `<PageTitle>` in all three files.
 
@@ -149,15 +149,15 @@ Place a `<HeadContent>` component, with a description meta tag, below `<PageTitl
 
 Now, let's run the application and see the titles and meta tags in action.
 
-![Title and Meta Tags](images/6bf044c1089ba36c633d7bfde0eb39da664fdc9b76da0155119c7721d2b38634.png)
+![Title and Meta Tags](images/6bf044c1089ba36c633d7bfde0eb39da664fdc9b76da015fv5119c7721d2b38634.png)
 
-Now, one important thing is to notice the title and meta tags, not only under the Elements tab in your browser's Dev Tools, as they will show up differently under the HTML source. So, to make sure, let's view the HTML source code instead.
+One important thing is to notice that the title and meta tags not only show under the Elements tab in your browser's Dev Tools, but also under the HTML source code which is actually used by the crawler bots. So, to make sure, let's view the HTML source code as well.
 
 Rick-click anywhere on the application, and click on `View page source`.
 
 ![View page source](images/e81ac1c08c56ec15778bea67baa25324e4a2acf1d5b1479d642dda1175c3eb59.png)
 
-You may notice that title and description do not show up:
+You will notice that title and description do not show up:
 
 ![Missing Title and Description](images/d0bf8f0ab3bee090fbc09c7f8068153e41428aedb9359ed0bb5379902822aec9.png)
 
@@ -169,34 +169,13 @@ Scroll all the way to the right, and you will find the tags, in an uncommented s
 
 ![Scroll to the right](images/8f702dd096bcc2203d76b58547d9f2a39f702fca76f564c7fbac5d517f9573e9.png)
 
-The formatting may change in the future, the current format is not a problem from web crawlers to find the tags.
+The formatting may change in the future, but the current format is not a problem from web crawlers to find the tags.
 
 >:blue_book: For more information about controlling the head content with `HeadContent` and how this works behind the scenes, refer to this document: [Control \<head> content in ASP.NET Core Blazor apps](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/control-head-content?view=aspnetcore-6.0)
 
 The "magic" that make this possible, is because a Blazor Server app with .NET 6.0 supports prerendering, and to do that, the `App` root component needs to be rendered before the `HeadOutlet`.
 
 If you have a Blazor Server application that was upgraded from .NET 5.0 to .NET 6.0, you need to make a few tweaks to be able to render the `App` root component before the `HeadOutlet`. Let's do that next.
-
-### Dynamic Title and Meta Tags
-
-Depending on your application needs, you may choose to create dynamic titles and meta tags for your pages. You can do that either by creating a class with all you pages' hard-coded titles and descriptions, creating them dynamically based on the specific page, think of a Products page, or even retrieving them from a database.
-
-In order to set the values, all you would need to do is to provide the values via code. Take a look at the following basic example:
-
-```razor
-<PageTitle>@pageTitle</PageTitle>
-
-<HeadContent>
-	<meta name="description" content="@pageDescription">
-</HeadContent>
-
-@code {
-	private string pageTitle = "Home (Dynamic page title)"
-    private string pageDescription = "Description (Dynamic page description.)"
-}
-```
-
-It would be up to you, to define that class, based on the approach you would like to take for the specific needs of your application. For simplicity, in the example above we are just providing the values via private variables.
 
 ### SEO in a Blazor Server Application Converted from .NET 5.0 to .NET 6.0
 
@@ -294,6 +273,27 @@ As you can see, title and description tags show up correctly under the Elements 
 As well as under the page source:
 
 ![Tags under page source](images/cdc0bed7a25cbb43fe7b3adabde67533ebda6a56751f264d40620094f5f1c95c.png)
+
+### Dynamic Title and Meta Tags
+
+Depending on your application needs, you may choose to create dynamic titles and meta tags for your pages. You can do that either by creating a class with all you pages' hard-coded titles and descriptions, creating them dynamically based on the specific page, think of a Products page, or even retrieving them from a database.
+
+In order to set the values, all you would need to do is to provide the values via code. Take a look at the following basic example:
+
+```razor
+<PageTitle>@pageTitle</PageTitle>
+
+<HeadContent>
+	<meta name="description" content="@pageDescription">
+</HeadContent>
+
+@code {
+	private string pageTitle = "Home (Dynamic page title)"
+    private string pageDescription = "Description (Dynamic page description.)"
+}
+```
+
+It would be up to you, to define that class, based on the approach you would like to take for the specific needs of your application. For simplicity, in the example above we are just providing the values via private variables.
 
 ### Create a Blazor WebAssembly Application
 
