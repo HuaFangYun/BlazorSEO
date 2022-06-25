@@ -18,20 +18,28 @@
       - [*FetchData.razor* HeadContent](#fetchdatarazor-headcontent)
     - [Dynamic Title and Meta Tags](#dynamic-title-and-meta-tags)
     - [SEO in a Blazor Server Application Converted from .NET 5.0 to .NET 6.0](#seo-in-a-blazor-server-application-converted-from-net-50-to-net-60)
-      - [*Index.razor* HeadContent](#indexrazor-headcontent-1)
-      - [*Counter.razor* HeadContent](#counterrazor-headcontent-1)
-      - [*FetchData.razor* HeadContent](#fetchdatarazor-headcontent-1)
+      - [*Index.razor* PageTitle and HeadContent](#indexrazor-pagetitle-and-headcontent)
+      - [*Counter.razor* PageTitle and HeadContent](#counterrazor-pagetitle-and-headcontent)
+      - [*FetchData.razor* PageTitle and HeadContent](#fetchdatarazor-pagetitle-and-headcontent)
+    - [Create a Blazor WebAssembly Application](#create-a-blazor-webassembly-application)
+      - [*Index.razor* PageTitle and HeadContent in WebAssembly](#indexrazor-pagetitle-and-headcontent-in-webassembly)
+      - [*Counter.razor* PageTitle and HeadContent in WebAssembly](#counterrazor-pagetitle-and-headcontent-in-webassembly)
+      - [*FetchData.razor* PageTitle and HeadContent in WebAssembly](#fetchdatarazor-pagetitle-and-headcontent-in-webassembly)
   - [Summary](#summary)
   - [Complete Code](#complete-code)
   - [Resources](#resources)
 
 ## Introduction
 
-In this episode, we are going to build a Blazor Server App and show you some tips and tricks to make it SEO friendly. We are going to see how `ServerPrerendered` helps with SEO.
+In this episode we will create a Blazor application and I will show you how to make it SEO (Search Engine Optimization) friendly, by leveraging the new `<PageTitle>`, and `<HeadContent>` components introduced in .NET 6.0.
 
-End results will look like this:
+We are going to talk about the how `ServerPrerendered` aids with that, and how you can take a .NET 5.0 Blazor Server application, and make changes to take advantage of the new `<PageTitle>`, and `<HeadContent>` components, by upgrading the application to use the .NET 6.0 target framework.
 
-![Logs](images/image.png)
+Finally, we will also talk about `ServerPrerendered` in Blazor WebAssembly applications, to also create a SEO-friendly application.
+
+End results will have a SEO friendly title and description meta tag, as shown below:
+
+![Logs](images/6bf044c1089ba36c633d7bfde0eb39da664fdc9b76da0155119c7721d2b38634.png)
 
 Let's get to it.
 
@@ -61,13 +69,7 @@ In order to build Blazor apps, the ASP.NET and web development workload needs to
 
 ## Demo
 
-In the following demo we will create a Blazor application and I will show you how to make it SEO (Search Engine Optimization) friendly, by leveraging the new `<PageTitle>`, and `<HeadContent>` components introduced in .NET 6.0.
-
-We are going to talk about the how `ServerPrerendered` aids with that, and how you can take a .NET 5.0 Blazor Server application, and make changes to take advantage of the new `<PageTitle>`, and `<HeadContent>` components, by upgrading the application to use the .NET 6.0 target framework.
-
-Finally, we will also talk about `ServerPrerendered` in Blazor WebAssembly applications, to also create a SEO-friendly application.
-
-Let's get started by creating a Blazor Server Application.
+Let's get started with the demo by creating a Blazor Server Application.
 
 ### Create a Blazor Server Application
 
@@ -249,9 +251,9 @@ Remove the code we moved to the *_Layout.cshtml* file from the *_host.cshtml* an
 
 That's all the pre-work needed, now we can use `<PageTitle>`, and `<HeadContent>` as we did before.
 
-Add a `<PageTitle>` components with a title, and a `<HeadContent>` component, with a description meta tag in all three files.
+Add a `<PageTitle>` component with a title, and a `<HeadContent>` component, with a description meta tag in all three files.
 
-#### *Index.razor* HeadContent
+#### *Index.razor* PageTitle and HeadContent
 
 ```razor
 <PageTitle>Index</PageTitle>
@@ -261,7 +263,7 @@ Add a `<PageTitle>` components with a title, and a `<HeadContent>` component, wi
 </HeadContent>
 ```
 
-#### *Counter.razor* HeadContent
+#### *Counter.razor* PageTitle and HeadContent
 
 ```razor
 <PageTitle>Counter</PageTitle>
@@ -271,7 +273,7 @@ Add a `<PageTitle>` components with a title, and a `<HeadContent>` component, wi
 </HeadContent>
 ```
 
-#### *FetchData.razor* HeadContent
+#### *FetchData.razor* PageTitle and HeadContent
 
 ```razor
 <PageTitle>Weather forecast</PageTitle>
@@ -291,9 +293,65 @@ As well as under the page source:
 
 ![Tags under page source](images/cdc0bed7a25cbb43fe7b3adabde67533ebda6a56751f264d40620094f5f1c95c.png)
 
+### Create a Blazor WebAssembly Application
+
+![Add a new project](images/3fa0fb360b28fa1be0be6f09acf524e5383a9c44cad0168c9a96a9f2aab2f8d3.png)
+
+![Configure your new project](images/402c831628813887de874f8ab935ccadd8deb43f2aba8250e1b636f20e11c63d.png)
+
+![Additional information](images/51fa7b296dc54da459b6cda4d9e0c3a69e6a441069f2ec4ea4131d1445233dc8.png)
+
+To be able to use new `<PageTitle>`, and `<HeadContent>` components, we need to add a `HeadOutlet` `RootComponent` into the *Program.cs* file.
+
+The .NET 6.0 Blazor WebAssembly app template does this for us, as you can see it in the *Program.cs* file:
+
+```csharp
+builder.RootComponents.Add<HeadOutlet>("head::after");
+```
+
+>:blue_book: If you are converting a .NET 5.0 Blazor WebAssembly Application into .NET 6.0, like we did before, adding the line above to your *Program.cs* file is all you have to do.
+
+Now you can add a `<PageTitle>` component with a title, and a `<HeadContent>` component, with a description meta tag in all three files.
+
+#### *Index.razor* PageTitle and HeadContent in WebAssembly
+
+```razor
+<PageTitle>Index</PageTitle>
+
+<HeadContent>
+    <meta name="description" content="Blazor SEO index page contains the Home main menu of the Blazor SEO demo application." />
+</HeadContent>
+```
+
+#### *Counter.razor* PageTitle and HeadContent in WebAssembly
+
+```razor
+<PageTitle>Counter</PageTitle>
+
+<HeadContent>
+    <meta name="description" content="Blazor SEO counter page contains a sample counter page in the Blazor SEO demo application." />
+</HeadContent>
+```
+
+#### *FetchData.razor* PageTitle and HeadContent in WebAssembly
+
+```razor
+<PageTitle>Weather forecast</PageTitle>
+
+<HeadContent>
+    <meta name="description" content="Blazor SEO fetchdata page contains sample Weather Forecast data in the Blazor SEO demo application." />
+</HeadContent>
+```
+
 ## Summary
 
-For more information about Blazor, check the links in the resources section below.
+In this episode we showed you how to utilize the new `<PageTitle>`, and `<HeadContent>` components, introduced in .NET 6.0, to make SEO-friendly applications in both Blazor Server and Blazor WebAssembly.
+
+We also talked about how `ServerPrerendered` aids with SEO, and how you can upgrade a .NET 5.0 Blazor Server application to .NET 6.0, and by making small changes utilize the `<PageTitle>`, and `<HeadContent>` components.
+
+Finally, we also talked about `ServerPrerendered` in Blazor WebAssembly applications, to make it SEO-friendly as well.
+
+For more information about Blazor and SEO, check out the links in the resources section below.
 
 ## Complete Code
 
