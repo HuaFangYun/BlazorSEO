@@ -368,7 +368,7 @@ How can we make a Blazor WebAssembly application take advantage of `ServerPreren
 
 The good news is that `render-mode` `ServerPrerendered` in a Blazor WebAssembly Application is possible, although, it is actually called `WebAssemblyPrerendered` and not `ServerPrerendered`. The "bad" news is that it requires you to host your Blazor WebAssembly application in an ASP.NET Core app, and it requires many steps to make it happen.
 
-In short, you can host your Blazor WebAssembly in an ASP.NET Core app, by checking the appropriate box when creating a Blazor WebAssembly application:
+In short, if you are writing a new Blazor WebAssembly application from scratch, you can host your Blazor WebAssembly in an ASP.NET Core app, by checking the appropriate box when creating a Blazor WebAssembly application:
 
 ![Blazor WebAssembly ASP.NET Core Hosted app](images/0b34afc6ff2914bcdbb988a2b0273a650e66511836a76376981f0b6db48ab3c5.png)  
 
