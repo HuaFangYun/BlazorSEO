@@ -25,17 +25,19 @@
       - [*Index.razor* PageTitle and HeadContent in WebAssembly](#indexrazor-pagetitle-and-headcontent-in-webassembly)
       - [*Counter.razor* PageTitle and HeadContent in WebAssembly](#counterrazor-pagetitle-and-headcontent-in-webassembly)
       - [*FetchData.razor* PageTitle and HeadContent in WebAssembly](#fetchdatarazor-pagetitle-and-headcontent-in-webassembly)
+    - [Prerender a Blazor WebAssembly Application](#prerender-a-blazor-webassembly-application)
+    - [SEO Extras](#seo-extras)
   - [Summary](#summary)
   - [Complete Code](#complete-code)
   - [Resources](#resources)
 
 ## Introduction
 
-In this episode we will create a Blazor application and I will show you how to make it SEO (Search Engine Optimization) friendly, by leveraging the new `<PageTitle>`, and `<HeadContent>` components introduced in .NET 6.0.
+In this episode we will create a Blazor application and I will show you how to make it Search Engine Optimization (SEO) friendly, by leveraging the new `<PageTitle>`, and `<HeadContent>` components introduced in .NET 6.0.
 
-We are going to talk about the how `ServerPrerendered` aids with that, and how you can take a .NET 5.0 Blazor Server application, and make changes to take advantage of the new `<PageTitle>`, and `<HeadContent>` components, by upgrading the application to use the .NET 6.0 target framework.
+We are going to talk about the how `render-mode` `ServerPrerendered` can improve SEO by rendering content for the initial HTTP response, and also I am going to show you how you can take a .NET 5.0 Blazor Server application, and make changes to take advantage of the new `<PageTitle>`, and `<HeadContent>` components, by upgrading the application to use the .NET 6.0 target framework.
 
-Finally, we will also talk about `ServerPrerendered` in Blazor WebAssembly applications, to also create a SEO-friendly application.
+Finally, we will also talk about `render-mode` `ServerPrerendered` in Blazor WebAssembly applications, to also create a SEO-friendly application.
 
 End results will have a SEO friendly title and description meta tag, as shown below:
 
@@ -343,11 +345,48 @@ Now you can add a `<PageTitle>` component with a title, and a `<HeadContent>` co
 </HeadContent>
 ```
 
+For Blazor WebAssembly applications, that is not the end of the story. Even though, we are able to use the `<PageTitle>`, and `<HeadContent>` components, we still have more work to do.
+
+Inspecting the Elements tab in the browser's development tools will show the title and description meta tag:
+
+![Title and Description Meta tags](images/4a17864de6e769ad175d317e96f301ddb8d67569c847e77273b927844692dfa4.png)  
+
+However, if we view the page source, we will not see the correct title, we will see `BlazorWebAssemblyAppSEO` instead of `Index`, and description will not show at all, which is not good for SEO, as web crawlers will inspect the HTML source code:
+
+![Title and Missing Description](images/82fbb4975f1105b2276bf3ee91cdacd7ee6e5803ef027212d4bf0bc46ef5e5f1.png)  
+
+So, what's going on here?
+
+Well, for starters, the titles of all three pages are being set by the *index.html* under the *wwwroot* folder. Titles and descriptions are not being properly set by the `<PageTitle>`, and `<HeadContent>` components.
+
+The issue, is because our Blazor WebAssembly is not being prerendered.
+
+How can we make a Blazor WebAssembly application take advantage of `ServerPrerendered` to aid with SEO?
+
+### Prerender a Blazor WebAssembly Application
+
+The good news is that `render-mode` `ServerPrerendered` in a Blazor WebAssembly Application is possible, although, it is actually called `WebAssemblyPrerendered` and not `ServerPrerendered`. The "bad" news is that it requires you to host your WebAssembly application in a ASP.NET Core app, and it requires many steps to make it happen.
+
+Rather than trying to replicate the steps needed, I will redirect you to a very well-documented and step-by-step process as outlined by Microsoft itself.
+
+I am talking about [Prerender and integrate ASP.NET Core Razor components](https://docs.microsoft.com/en-us/aspnet/core/blazor/components/prerendering-and-integration?view=aspnetcore-6.0&pivots=webassembly).
+
+Take notice that the document also explains how to make use of the new `PersistentComponentState` which without it, the state used during prerendering will get lost, and it will have to be recreated once the application is fully loaded. This is particularly true when making asynchronously calls, and a consequence of that would be that the application may flicker as the prerendered UI is replaced with temporarily placeholders and then rendered again. Use the `PersistentComponentState` class to fix that problem.
+
+### SEO Extras
+
+SEO is a big topic, and there are several techniques to help with better index your pages by the web search engines. Below I list a few extras that can help with SEO.
+
+- Besides the title and description, the `H1` tag on each page, also play an important role in SEO, so make sure you keep a `H1` tag on your pages, as it will be use in the browser's results top-level heading.
+- There are restrictions as how long title, description and `H1` headers can be, so make sure you visit each search engine's official documentation.
+- Create a *sitemap.xml* which is basically a file that contains a list of the pages on your site, among other information.
+- Back in the day, the `keywords` meta data used to be considered for SEO, and we would add a comma-separate list of keywords relevant to your page. That is no longer the case, so do not bother adding `keywords` meta data.
+
 ## Summary
 
 In this episode we showed you how to utilize the new `<PageTitle>`, and `<HeadContent>` components, introduced in .NET 6.0, to make SEO-friendly applications in both Blazor Server and Blazor WebAssembly.
 
-We also talked about how `ServerPrerendered` aids with SEO, and how you can upgrade a .NET 5.0 Blazor Server application to .NET 6.0, and by making small changes utilize the `<PageTitle>`, and `<HeadContent>` components.
+We also talked about how `render-mode` `ServerPrerendered` aids with SEO, and how you can upgrade a .NET 5.0 Blazor Server application to .NET 6.0, and by making small changes utilize the `<PageTitle>`, and `<HeadContent>` components.
 
 Finally, we also talked about `ServerPrerendered` in Blazor WebAssembly applications, to make it SEO-friendly as well.
 
@@ -361,14 +400,15 @@ The complete code for this demo can be found in the link below.
 
 ## Resources
 
-| Resource Title                                      | Url                                                                                                                        |
-| --------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| The .NET Show with Carl Franklin                    | <https://www.youtube.com/playlist?list=PL8h4jt35t1wgW_PqzZ9USrHvvnk8JMQy_>                                                 |
-| Download .NET                                       | <https://dotnet.microsoft.com/en-us/download>                                                                              |
-| Search Engine Optimization (SEO) Starter Guide      | <https://developers.google.com/search/docs/beginner/seo-starter-guide?hl=en&visit_id=637639370449073519-226133402&rd=1>    |
-| Bing Webmaster Guidelines                           | <https://www.bing.com/webmasters/help/webmasters-guidelines-30fba23a>                                                      |
-| Control \<head> content in ASP.NET Core Blazor apps | <https://docs.microsoft.com/en-us/aspnet/core/blazor/components/control-head-content?view=aspnetcore-6.0>                  |
-| Apple Supported Meta Tags                           | https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html |
+| Resource Title                                        | Url                                                                                                                                  |
+| ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| The .NET Show with Carl Franklin                      | <https://www.youtube.com/playlist?list=PL8h4jt35t1wgW_PqzZ9USrHvvnk8JMQy_>                                                           |
+| Download .NET                                         | <https://dotnet.microsoft.com/en-us/download>                                                                                        |
+| Prerender and integrate ASP.NET Core Razor components | <https://docs.microsoft.com/en-us/aspnet/core/blazor/components/prerendering-and-integration?view=aspnetcore-6.0&pivots=webassembly> |
+| Search Engine Optimization (SEO) Starter Guide        | <https://developers.google.com/search/docs/beginner/seo-starter-guide?hl=en&visit_id=637639370449073519-226133402&rd=1>              |
+| Bing Webmaster Guidelines                             | <https://www.bing.com/webmasters/help/webmasters-guidelines-30fba23a>                                                                |
+| Control \<head> content in ASP.NET Core Blazor apps   | <https://docs.microsoft.com/en-us/aspnet/core/blazor/components/control-head-content?view=aspnetcore-6.0>                            |
+| Apple Supported Meta Tags                             | https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html           |
 
 |Twitter Cards|<https://developer.twitter.com/en/docs/twitter-for-websites/cards/guides/getting-started>|
 |https://developer.twitter.com/en/docs/twitter-for-websites/cards/guides/getting-started|https://ogp.me/|
