@@ -5,6 +5,8 @@ VisualStudioVersion = 17.3.32611.2
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorServerAppSEO", "BlazorServerAppSEO\BlazorServerAppSEO.csproj", "{B51A0532-EC8F-4D96-8946-41736CEDD5C4}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorServerAppSEOWithNET5.0", "BlazorServerAppSEOWithNET5.0\BlazorServerAppSEOWithNET5.0.csproj", "{43C01096-7D37-4702-9373-51E94BD035A9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{B51A0532-EC8F-4D96-8946-41736CEDD5C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B51A0532-EC8F-4D96-8946-41736CEDD5C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B51A0532-EC8F-4D96-8946-41736CEDD5C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43C01096-7D37-4702-9373-51E94BD035A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43C01096-7D37-4702-9373-51E94BD035A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43C01096-7D37-4702-9373-51E94BD035A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43C01096-7D37-4702-9373-51E94BD035A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
